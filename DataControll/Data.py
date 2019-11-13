@@ -1,11 +1,15 @@
 import json
 from DataControll import Drink
 
+drinks = []
+
 
 def load_drinks(path):
-    f = open(path).read()
+    try:
+        f = open(path).read()
+    except:
+        return "Invalid Path"
     data = json.loads(f)
-    drinks = []
     for x in data:
         c = []
         for y in data[x]:
@@ -13,6 +17,11 @@ def load_drinks(path):
         drinks.append(Drink.Drink(x, c))
     for x in drinks:
         print(x)
+    return drinks
 
 
-load_drinks(input())
+def get_drinks_str():
+    out = ""
+    for x in drinks:
+        out += str(x)
+    return out
