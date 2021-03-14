@@ -12,12 +12,17 @@ def load_drinks(path):
     data = json.loads(f)
     for x in data:
         c = []
+        p = 0.0
         for y in data[x]:
+            p += data[x][y]
             c.append(Drink.Base(y, data[x][y]))
-        drinks.append(Drink.Drink(x, c))
+        if p != 1:
+            return x + " ingredients dont add up to 100%"
+        else:
+            drinks.append(Drink.Drink(x, c))
     for x in drinks:
         print(x)
-    return drinks
+    return True
 
 
 def get_drinks_str():

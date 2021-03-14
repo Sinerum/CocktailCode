@@ -1,8 +1,8 @@
-QMainWindow{
-            background-color: red;
+QPushButton{
+        border: 1px groove black;
+        color: black;
 }
 
-QPushButton{
-        background: #3498db;
-        color: #ffffff;
+QPushButton:hover{
+        border: 1px groove DodgerBlue;
 }
