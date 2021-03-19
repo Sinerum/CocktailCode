@@ -1,4 +1,4 @@
-from PumpControll import PumpControll
+from DataControll import PumpControll
 
 
 class Drink:
@@ -23,3 +23,4 @@ class Base:
 
     def __str__(self):
         return self.name + ":" + str(self.amount)
+

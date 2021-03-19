@@ -1,6 +1,7 @@
 import PyQt5
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, uic, QtWidgets
+
 from DataControll import Data
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
@@ -15,27 +16,16 @@ class MainWindow(QMainWindow):
 
         super(MainWindow, self).__init__()
         layout = QVBoxLayout()
-        self.path = QLineEdit('Path to drinks.json')
-        button = QPushButton('Load')
-        button.setAutoDefault(True)
-        button.clicked.connect(self.drinks_button)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        layout.addWidget(self.path)
-        layout.addWidget(button)
         widget = QWidget()
 
         widget.setLayout(layout)
 
         self.setCentralWidget(widget)
+        Data.load_conf()
+        Data.load_drinks('drinks.json')
+        self.createCocktailSelection()
 
-    def drinks_button(self):
-        t = Data.load_drinks(self.path.text())
-        if not isinstance(t, str):
-            self.createMenu()
-        else:
-            self.path.setText(t)
-
-    def createMenu(self):
+    def createCocktailSelection(self):
         rowsize = 4
         layout = QGridLayout()
         layout.setSpacing(0)
@@ -43,7 +33,7 @@ class MainWindow(QMainWindow):
             button = QPushButton(Data.drinks[i].name)
             button.clicked.connect(Data.drinks[i].pour)
             button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-            layout.addWidget(button, i/rowsize, i % rowsize)
+            layout.addWidget(button, i / rowsize, i % rowsize)
         widget = QWidget()
         widget.setLayout(layout)
         self.setCentralWidget(widget)
